@@ -8,3 +8,12 @@ POST http://localhost:3000 HTTP/1.1
   
 This is the body we are sending
 Goodluck!
+
+###
+GET http://localhost:3000/sample/
+  foo: bar
+
+###
+POST http://localhost:3000/sample/
+  
+Sample test
