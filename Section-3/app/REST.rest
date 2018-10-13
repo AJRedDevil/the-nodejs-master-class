@@ -10,28 +10,19 @@ This is the body we are sending
 Goodluck!
 
 ###
-GET http://localhost:3000/sample/
+GET http://localhost:3000/ping/
   foo: bar
 
 ###
-POST http://localhost:3000/sample/
+POST http://localhost:3000/ping/
   
 Sample test
 
 ###
-GET http://localhost:5000/sample/
+GET https://localhost:3001/ping/
   foo: bar
 
 ###
-POST http://localhost:5000/sample/
-  
-Sample test
-
-###
-GET https://localhost:5001/sample/
-  foo: bar
-
-###
-POST https://localhost:5001/sample/
+POST https://localhost:3001/ping/
   
 Sample test

@@ -94,26 +94,17 @@ const unifiedServer = function (req, res) {
       res.setHeader('Content-Type', 'application/json');
       res.writeHead(statusCode);
       res.end(payloadString);
-      console.log(`Returnning this response: ${statusCode} ${payloadString}`);
+      console.log(trimmedPath, statusCode);
     });
-
-    // Send the response
-    res.end('Hello World!\n');
-
-    // Log the request/response
-    console.log(`Request received with this payload: ${JSON.stringify(buffer)}`);
   });
 };
 
 // Define all the handers
 const handlers = {};
 
-// Sample handler
-handlers.sample = function (data, callback) {
-  // Callback a http status code, and a payload object
-  callback(200, {
-    name: 'sample handler'
-  })
+// Ping handler
+handlers.ping = function (data, callback) {
+  callback(200);
 };
 
 // Not found handler
@@ -123,5 +114,5 @@ handlers.notFound = function (data, callback) {
 
 // Define the request router
 const router = {
-  sample: handlers.sample
+  ping: handlers.ping
 };
