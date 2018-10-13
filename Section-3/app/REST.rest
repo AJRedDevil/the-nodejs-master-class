@@ -26,3 +26,44 @@ GET https://localhost:3001/ping/
 POST https://localhost:3001/ping/
   
 Sample test
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "firstName": "Kaji",
+  "lastName": "Shrestha",
+  "phone": "9840123456",
+  "password": "changeme",
+  "tosAgreement": true
+}
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "firstName": "Pari",
+  "lastName": "Shrestha",
+  "phone": "9840987654",
+  "password": "changeme",
+  "tosAgreement": false
+}
+
+###
+GET http://localhost:3000/users
+  ?phone=9840123456
+
+###
+PUT http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "firstName": "Hero",
+  "phone": "9840123456"
+}
+
+###
+DELETE http://localhost:3000/users
+  ?phone=9840123456
