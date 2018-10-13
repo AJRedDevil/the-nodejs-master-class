@@ -1,4 +1,10 @@
-http://localhost:3000
+GET http://localhost:3000
   foo: bar
   fizz: buzz
-  red: blue
+
+###
+
+POST http://localhost:3000 HTTP/1.1
+  
+This is the body we are sending
+Goodluck!
