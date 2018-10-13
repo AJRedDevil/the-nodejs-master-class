@@ -17,3 +17,12 @@ GET http://localhost:3000/sample/
 POST http://localhost:3000/sample/
   
 Sample test
+
+###
+GET http://localhost:5000/sample/
+  foo: bar
+
+###
+POST http://localhost:5000/sample/
+  
+Sample test
