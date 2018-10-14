@@ -8,3 +8,5 @@ Icon?
 ehthumbs.db
 Thumbs.db
 .vscode
+*.gz.b64
+.logs/*.log
