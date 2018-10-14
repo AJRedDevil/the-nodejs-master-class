@@ -1,20 +1,27 @@
-GET http://localhost:3000
+@CORRECT_NUM = 4158375309
+@INCORRECT_NUM = 4123456789
+@HOST = http://localhost:3000
+@TOKEN = tcv22eo2n0ctp7p9dv5k
+@ID = 52yulvpeh00tkmimry0t
+
+###
+GET {{HOST}}
   foo: bar
   fizz: buzz
 
 ###
 
-POST http://localhost:3000 HTTP/1.1
+POST {{HOST}} HTTP/1.1
   
 This is the body we are sending
 Goodluck!
 
 ###
-GET http://localhost:3000/ping/
+GET {{HOST}}/ping/
   foo: bar
 
 ###
-POST http://localhost:3000/ping/
+POST {{HOST}}/ping/
   
 Sample test
 
@@ -28,63 +35,63 @@ POST https://localhost:3001/ping/
 Sample test
 
 ###
-POST http://localhost:3000/users
+POST {{HOST}}/users
 Content-Type: application/json
 
 {
   "firstName": "Kaji",
   "lastName": "Shrestha",
-  "phone": "9840123456",
+  "phone": {{INCORRECT_NUM}},
   "password": "changeme",
   "tosAgreement": true
 }
 
 ###
-POST http://localhost:3000/users
+POST {{HOST}}/users
 Content-Type: application/json
 
 {
   "firstName": "Pari",
   "lastName": "Shrestha",
-  "phone": "9840987654",
+  "phone": {{INCORRECT_NUM}},
   "password": "changeme",
   "tosAgreement": false
 }
 
 ###
-GET http://localhost:3000/users
-  ?phone=9840123456
-token: nfkw2d6gry8uet3809wf
+GET {{HOST}}/users
+  ?phone={{INCORRECT_NUM}}
+token: {{TOKEN}}
 
 ###
-PUT http://localhost:3000/users
+PUT {{HOST}}/users
 Content-Type: application/json
 
 {
   "firstName": "Hero",
-  "phone": "9840123456"
+  "phone": {{INCORRECT_NUM}}
 }
 
 ###
-DELETE http://localhost:3000/users
-  ?phone=9840123456
-token: nfkw2d6gry8uet3809wf
+DELETE {{HOST}}/users
+  ?phone={{INCORRECT_NUM}}
+token: {{TOKEN}}
 
 ###
-POST http://localhost:3000/tokens
+POST {{HOST}}/tokens
 Content-Type: application/json
 
 {
-  "phone": "9840123456",
+  "phone": {{INCORRECT_NUM}},
   "password": "changeme"
 }
 
 ###
-GET http://localhost:3000/tokens
-  ?id=e8jo882iugurvu5xo4re
+GET {{HOST}}/tokens
+  ?id={{ID}}
 
 ###
-PUT http://localhost:3000/tokens
+PUT {{HOST}}/tokens
 Content-Type: application/json
 
 {
@@ -93,37 +100,37 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/tokens
-  ?id=e8jo882iugurvu5xo4re
+DELETE {{HOST}}/tokens
+  ?id={{ID}}
 
 ###
-GET http://localhost:3000/users
+GET {{HOST}}/users
   ?phone=9840123456
-token: jt8npgrp5kkayj87s6w6
+token: {{TOKEN}}
 
 ###
-POST http://localhost:3000/checks
+POST {{HOST}}/checks
 Content-Type: application/json
-token: nfkw2d6gry8uet3809wf
+token: {{TOKEN}}
 
 {
   "protocol": "http",
   "url": "google.com",
   "method": "get",
-  "successCodes": [200, 201],
+  "successCodes": [200, 201, 301, 302],
   "timeoutSeconds": 3
 }
 
 ###
-GET http://localhost:3000/checks
-  ?id=qs80eic3fb21yxon8qmf
+GET {{HOST}}/checks
+  ?id={{ID}}
 Content-Type: application/json
-token: nfkw2d6gry8uet3809wf
+token: {{TOKEN}}
 
 ###
-PUT http://localhost:3000/checks
+PUT {{HOST}}/checks
 Content-Type: application/json
-token: tcv22eo2n0ctp7p9dv5k
+token: {{TOKEN}}
 
 {
   "id": "52yulvpeh00tkmimry0t",
@@ -134,7 +141,7 @@ token: tcv22eo2n0ctp7p9dv5k
 }
 
 ###
-DELETE http://localhost:3000/checks
-  ?id=52yulvpeh00tkmimry0t
+DELETE {{HOST}}/checks
+  ?id={{ID}}
 Content-Type: application/json
-token: tcv22eo2n0ctp7p9dv5k
+token: {{TOKEN}}
