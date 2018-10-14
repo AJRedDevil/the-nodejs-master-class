@@ -1,7 +1,8 @@
-@CORRECT_NUM = 4158375309
+@CORRECT_NUM = "4158375309"
+@INCORRECT_NUM_STR = "4123456789"
 @INCORRECT_NUM = 4123456789
 @HOST = http://localhost:3000
-@TOKEN = tcv22eo2n0ctp7p9dv5k
+@TOKEN = d1jb986cpw6aknzioe5t
 @ID = 52yulvpeh00tkmimry0t
 
 ###
@@ -41,7 +42,7 @@ Content-Type: application/json
 {
   "firstName": "Kaji",
   "lastName": "Shrestha",
-  "phone": {{INCORRECT_NUM}},
+  "phone": {{INCORRECT_NUM_STR}},
   "password": "changeme",
   "tosAgreement": true
 }
@@ -53,7 +54,7 @@ Content-Type: application/json
 {
   "firstName": "Pari",
   "lastName": "Shrestha",
-  "phone": {{INCORRECT_NUM}},
+  "phone": {{INCORRECT_NUM_STR}},
   "password": "changeme",
   "tosAgreement": false
 }
@@ -69,7 +70,7 @@ Content-Type: application/json
 
 {
   "firstName": "Hero",
-  "phone": {{INCORRECT_NUM}}
+  "phone": {{INCORRECT_NUM_STR}}
 }
 
 ###
@@ -82,7 +83,7 @@ POST {{HOST}}/tokens
 Content-Type: application/json
 
 {
-  "phone": {{INCORRECT_NUM}},
+  "phone": {{INCORRECT_NUM_STR}},
   "password": "changeme"
 }
 
@@ -117,7 +118,7 @@ token: {{TOKEN}}
   "protocol": "http",
   "url": "google.com",
   "method": "get",
-  "successCodes": [200, 201, 301, 302],
+  "successCodes": [200, 201],
   "timeoutSeconds": 3
 }
 
