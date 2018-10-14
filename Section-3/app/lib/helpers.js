@@ -32,5 +32,29 @@ helpers.hash = function (str) {
   }
 };
 
+// Create a string of random alphanumeric characters, of a given lengh
+helpers.createRandomString = function (strLength) {
+  strLength = typeof (strLength) == 'number' && strLength > 0 ?
+    strLength : false;
+  if (strLength) {
+    // Define all the possible character that cuold go into a string
+    const possibleCharacters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+    // Start the final string
+    let str = '';
+    for (i = 1; i <= strLength; i++) {
+      // Get a random character from the possibleCharacter string
+      const randomCharacter = possibleCharacters.charAt(Math.floor(
+        Math.random() * possibleCharacters.length));
+      // Append this character to the string
+      str += randomCharacter;
+    }
+    // Returh the final string
+    return str;
+  } else {
+    return false;
+  }
+};
+
 // Export the module
 module.exports = helpers;
