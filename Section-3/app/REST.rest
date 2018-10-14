@@ -54,6 +54,7 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/users
   ?phone=9840123456
+token: nfkw2d6gry8uet3809wf
 
 ###
 PUT http://localhost:3000/users
@@ -67,6 +68,7 @@ Content-Type: application/json
 ###
 DELETE http://localhost:3000/users
   ?phone=9840123456
+token: nfkw2d6gry8uet3809wf
 
 ###
 POST http://localhost:3000/tokens
@@ -98,3 +100,41 @@ DELETE http://localhost:3000/tokens
 GET http://localhost:3000/users
   ?phone=9840123456
 token: jt8npgrp5kkayj87s6w6
+
+###
+POST http://localhost:3000/checks
+Content-Type: application/json
+token: nfkw2d6gry8uet3809wf
+
+{
+  "protocol": "http",
+  "url": "google.com",
+  "method": "get",
+  "successCodes": [200, 201],
+  "timeoutSeconds": 3
+}
+
+###
+GET http://localhost:3000/checks
+  ?id=qs80eic3fb21yxon8qmf
+Content-Type: application/json
+token: nfkw2d6gry8uet3809wf
+
+###
+PUT http://localhost:3000/checks
+Content-Type: application/json
+token: tcv22eo2n0ctp7p9dv5k
+
+{
+  "id": "52yulvpeh00tkmimry0t",
+  "protocol": "https",
+  "method": "put",
+  "successCodes": [200, 301],
+  "timeoutSeconds": 5
+}
+
+###
+DELETE http://localhost:3000/checks
+  ?id=52yulvpeh00tkmimry0t
+Content-Type: application/json
+token: tcv22eo2n0ctp7p9dv5k
