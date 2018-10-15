@@ -65,8 +65,12 @@ server.unifiedServer = function (req, res) {
 
     // Check the router for a matching path for a handler.
     // If one is not found, use the notFound handler instead.
-    const chosenHandler = typeof (server.router[trimmedPath]) !== 'undefined' ?
+    let chosenHandler = typeof (server.router[trimmedPath]) !== 'undefined' ?
       server.router[trimmedPath] : handlers.notFound;
+
+    // If the request is withing the public directory, use the public handler instead
+    chosenHandler = trimmedPath.startsWith('public/') ?
+      handlers.public : chosenHandler;
 
     // Construct the data object to send to the handler
     const data = {
@@ -79,7 +83,6 @@ server.unifiedServer = function (req, res) {
 
     // Route the request to the handler specified in the router
     chosenHandler(data, function (statusCode, payload, contentType) {
-
       // Determine the type of response (fallback to JSON)
       contentType = typeof (contentType) == 'string' ? contentType : 'json';
 
@@ -88,14 +91,28 @@ server.unifiedServer = function (req, res) {
 
       // Return the response parts that are content-type specific
       let payloadString = '';
-      if (contentType == 'json') {
-        res.setHeader('Content-Type', 'application/json');
-        payload = typeof (payload) == 'object' ? payload : {};
-        payloadString = JSON.stringify(payload);
-      }
       if (contentType == 'html') {
         res.setHeader('Content-Type', 'text/html');
         payloadString = typeof (payload) == 'string' ? payload : '';
+      } else if (contentType == 'favicon') {
+        res.setHeader('Content-Type', 'image/x-icon');
+        payloadString = typeof (payload) !== 'undefined' ? payload : '';
+      } else if (contentType == 'plain') {
+        res.setHeader('Content-Type', 'text/plain');
+        payloadString = typeof (payload) !== 'undefined' ? payload : '';
+      } else if (contentType == 'css') {
+        res.setHeader('Content-Type', 'text/css');
+        payloadString = typeof (payload) !== 'undefined' ? payload : '';
+      } else if (contentType == 'png') {
+        res.setHeader('Content-Type', 'image/png');
+        payloadString = typeof (payload) !== 'undefined' ? payload : '';
+      } else if (contentType == 'jpg') {
+        res.setHeader('Content-Type', 'image/jpeg');
+        payloadString = typeof (payload) !== 'undefined' ? payload : '';
+      } else {
+        res.setHeader('Content-Type', 'application/json');
+        payload = typeof (payload) == 'object' ? payload : {};
+        payloadString = JSON.stringify(payload);
       }
 
       // Return the response
@@ -126,7 +143,9 @@ server.router = {
   ping: handlers.ping,
   'api/users': handlers.users,
   'api/tokens': handlers.tokens,
-  'api/checks': handlers.checks
+  'api/checks': handlers.checks,
+  'favicon.ico': handlers.favicon,
+  public: handlers.public
 };
 
 // Init script
