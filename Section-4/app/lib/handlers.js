@@ -232,6 +232,36 @@ handlers.checksCreate = function (data, callback) {
   }
 };
 
+// Dashboard (view all checks)
+handlers.checksList = function (data, callback) {
+  // Reject any request that isn't a get
+  if (data.method == 'get') {
+    // Prepare data for interpolation
+    const templateData = {
+      'head.title': 'Dashboard',
+      'body.class': 'checksList'
+    };
+    // Read in a template as a string
+    helpers.getTemplate('checksList', templateData, function (err, str) {
+      if (!err && str) {
+        // Add the universal header and footer
+        helpers.addUniversalTemplates(str, templateData, function (err, str) {
+          if (!err && str) {
+            // Return that page as HTML
+            callback(200, str, 'html');
+          } else {
+            callback(500, undeinfed, 'html');
+          }
+        });
+      } else {
+        callback(500, undeinfed, 'html');
+      }
+    });
+  } else {
+    callback(405, undefined, 'html');
+  }
+};
+
 // Favicon
 handlers.favicon = function (data, callback) {
   // Reject any request that isn't a get
@@ -884,7 +914,7 @@ handlers._checks.get = function (data, callback) {
         const token = typeof (data.headers.token) == 'string' ?
           data.headers.token : false;
         // Verify that the given token is valid and belongs to the user who created the check
-        console.log(`This is check data ${checkData}`);
+        console.log('This is check data:', checkData);
         handlers._tokens.verifyToken(token, checkData.userPhone, function (tokenIsValid) {
           if (tokenIsValid) {
             // Return check data
@@ -942,7 +972,7 @@ handlers._checks.put = function (data, callback) {
           const token = typeof (data.headers.token) == 'string' ?
             data.headers.token : false;
           // Verify that the given token is valid and belongs to the user who created the check
-          console.log(`This is check data ${checkData}`);
+          console.log('This is check data:', checkData);
           handlers._tokens.verifyToken(token, checkData.userPhone, function (tokenIsValid) {
             if (tokenIsValid) {
               // Update check data where necessary
@@ -1010,7 +1040,7 @@ handlers._checks.delete = function (data, callback) {
         const token = typeof (data.headers.token) == 'string' ?
           data.headers.token : false;
         // Verify that the given token is valid and belongs to the user who created the check
-        console.log(`This is check data ${checkData}`);
+        console.log('This is check data:', checkData);
         handlers._tokens.verifyToken(token, checkData.userPhone, function (tokenIsValid) {
           if (tokenIsValid) {
 
