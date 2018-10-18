@@ -15,6 +15,11 @@ const config = require('./config');
 // Containers for all the helpers
 const helpers = {};
 
+// Sample for testing that simply returns a number
+helpers.getANumber = function () {
+  return 1;
+};
+
 // Pase a JSON string to an object in all cases, without throwing
 helpers.parseJsonToObject = function (str) {
   try {
@@ -186,7 +191,7 @@ helpers.interpolate = function (str, data) {
 };
 
 // Get the contents of a static (public) asset
-helpers.getStaticAsset = function(fileName, callback) {
+helpers.getStaticAsset = function (fileName, callback) {
   fileName = typeof (fileName) == 'string' &&
     fileName.length > 0 ? fileName : false;
   if (fileName) {
