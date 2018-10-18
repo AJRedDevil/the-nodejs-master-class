@@ -10,6 +10,8 @@ const readline = require('readline');
 const util = require('util');
 const v8 = require('v8');
 
+const _data = require('./data');
+
 const debug = util.debuglog('cli');
 class _events extends events {};
 const e = new _events();
@@ -192,7 +194,26 @@ cli.responders.stats = function () {
 
 // List Users
 cli.responders.listUsers = function () {
-  console.log('You asked for list users');
+  _data.list('users', function (err, userIds) {
+    if (!err && userIds && userIds.length > 0) {
+      cli.verticalSpace();
+      userIds.forEach(function (userId) {
+        _data.read('users', userId, function (err, userData) {
+          if (!err && userData) {
+            let line = `Name: ${userData.firstName} ${userData.lastName} Phone: ${userData.phone} Checks: `;
+            let numberOfChecks = typeof (userData.checks) == 'object' &&
+              userData.checks instanceof Array &&
+              userData.checks.length > 0 ?
+              userData.checks.length : 0;
+            line += numberOfChecks;
+            console.log(line);
+            cli.verticalSpace();
+
+          }
+        })
+      });
+    }
+  });
 };
 
 // More user info
