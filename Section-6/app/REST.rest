@@ -146,3 +146,6 @@ DELETE {{HOST}}/checks
   ?id={{ID}}
 Content-Type: application/json
 token: {{TOKEN}}
+
+###
+GET {{HOST}}/examples/error
