@@ -11,6 +11,7 @@ const util = require('util');
 const v8 = require('v8');
 
 const _data = require('./data');
+const _logs = require('./logs');
 
 const debug = util.debuglog('cli');
 class _events extends events {};
@@ -76,7 +77,7 @@ cli.responders.help = function () {
     'More user info --{userId}': 'Show details of a specified user',
     'List checks --up --down': 'Show a list of all the active checks in the system, including their state.The "--up" and "--down flags are both optional."',
     'More check info --{checkId}': 'Show details of a specified check',
-    'List logs': 'Show a list of all the log files available to be read (compressed and uncompressed)',
+    'List logs': 'Show a list of all the log files available to be read (compressed only)',
     'More log info --{logFileName}': 'Show details of a specified log file',
   };
 
@@ -291,7 +292,17 @@ cli.responders.moreCheckInfo = function (str) {
 
 // List Logs
 cli.responders.listLogs = function () {
-  console.log('You asked for list logs');
+  _logs.list(true, function (err, logFileNames) {
+    if (!err && logFileNames && logFileNames.length > 0) {
+      cli.verticalSpace();
+      logFileNames.forEach(function (logFileName) {
+        if (logFileName.indexOf('-') > -1) {
+          console.log(logFileName);
+          cli.verticalSpace();
+        }
+      })
+    }
+  });
 };
 
 // More logs info
