@@ -12,6 +12,7 @@ const v8 = require('v8');
 
 const _data = require('./data');
 const _logs = require('./logs');
+const helpers = require('./helpers');
 
 const debug = util.debuglog('cli');
 class _events extends events {};
@@ -275,7 +276,7 @@ cli.responders.moreCheckInfo = function (str) {
   const checkId = typeof (arr[1]) == 'string' && arr[1].trim().length > 0 ?
     arr[1].trim() : false;
   if (checkId) {
-    // Lookup the user
+    // Lookup the check
     _data.read('checks', checkId, function (err, checkData) {
       if (!err && checkData) {
 
@@ -307,7 +308,29 @@ cli.responders.listLogs = function () {
 
 // More logs info
 cli.responders.moreLogInfo = function (str) {
-  console.log('You asked for more log info', str);
+  // Get ID from string
+  const arr = str.split('--');
+  const logFileName = typeof (arr[1]) == 'string' && arr[1].trim().length > 0 ?
+    arr[1].trim() : false;
+  if (logFileName) {
+    cli.verticalSpace();
+    // Decompress it
+    _logs.decompress(logFileName, function (err, strData) {
+      if (!err && strData) {
+        // Split it into lines
+        const arr = strData.split('\n');
+        arr.forEach(function (jsonString) {
+          const logObject = helpers.parseJsonToObject(jsonString);
+          if (logObject && JSON.stringify(logObject) !== '{}') {
+            console.dir(logObject, {
+              'colors': true
+            });
+            cli.verticalSpace();
+          }
+        });
+      }
+    });
+  }
 };
 
 // Input processor
