@@ -1,0 +1,151 @@
+@CORRECT_NUM = "4158375309"
+@INCORRECT_NUM_STR = "4123456789"
+@INCORRECT_NUM = 4123456789
+@HOST = http://localhost:3000
+@TOKEN = gi1aer3zt1rvxi5j7z93
+@ID = 52yulvpeh00tkmimry0t
+
+###
+GET {{HOST}}
+  foo: bar
+  fizz: buzz
+
+###
+
+POST {{HOST}} HTTP/1.1
+  
+This is the body we are sending
+Goodluck!
+
+###
+GET {{HOST}}/ping/
+  foo: bar
+
+###
+POST {{HOST}}/ping/
+  
+Sample test
+
+###
+GET https://localhost:3001/ping/
+  foo: bar
+
+###
+POST https://localhost:3001/ping/
+  
+Sample test
+
+###
+POST {{HOST}}/api/users
+Content-Type: application/json
+
+{
+  "firstName": "Kaji",
+  "lastName": "Shrestha",
+  "phone": {{INCORRECT_NUM_STR}},
+  "password": "changeme",
+  "tosAgreement": true
+}
+
+###
+POST {{HOST}}/api/users
+Content-Type: application/json
+
+{
+  "firstName": "Pari",
+  "lastName": "Shrestha",
+  "phone": {{INCORRECT_NUM_STR}},
+  "password": "changeme",
+  "tosAgreement": false
+}
+
+###
+GET {{HOST}}/api/users
+  ?phone={{INCORRECT_NUM}}
+token: {{TOKEN}}
+
+###
+PUT {{HOST}}/api/users
+Content-Type: application/json
+
+{
+  "firstName": "Hero",
+  "phone": {{INCORRECT_NUM_STR}}
+}
+
+###
+DELETE {{HOST}}/api/users
+  ?phone={{INCORRECT_NUM}}
+token: {{TOKEN}}
+
+###
+POST {{HOST}}/api/tokens
+Content-Type: application/json
+
+{
+  "phone": {{INCORRECT_NUM_STR}},
+  "password": "changeme"
+}
+
+###
+GET {{HOST}}/api/tokens
+  ?id={{ID}}
+
+###
+PUT {{HOST}}/api/tokens
+Content-Type: application/json
+
+{
+  "id": "e8jo882iugurvu5xo4re",
+  "extend": true
+}
+
+###
+DELETE {{HOST}}/api/tokens
+  ?id={{ID}}
+
+###
+GET {{HOST}}/api/users
+  ?phone=9840123456
+token: {{TOKEN}}
+
+###
+POST {{HOST}}/api/checks
+Content-Type: application/json
+token: {{TOKEN}}
+
+{
+  "protocol": "http",
+  "url": "shouldnotexist123456789.com",
+  "method": "get",
+  "successCodes": [200, 201],
+  "timeoutSeconds": 3
+}
+
+###
+GET {{HOST}}/api/checks
+  ?id={{ID}}
+Content-Type: application/json
+token: {{TOKEN}}
+
+###
+PUT {{HOST}}/api/checks
+Content-Type: application/json
+token: {{TOKEN}}
+
+{
+  "id": "52yulvpeh00tkmimry0t",
+  "protocol": "https",
+  "method": "put",
+  "successCodes": [200, 301],
+  "timeoutSeconds": 5
+}
+
+###
+DELETE {{HOST}}/api/checks
+  ?id={{ID}}
+Content-Type: application/json
+token: {{TOKEN}}
+
+###
+GET {{HOST}}/examples/error
