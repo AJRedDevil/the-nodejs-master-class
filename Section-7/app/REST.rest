@@ -2,7 +2,7 @@
 @INCORRECT_NUM_STR = "4123456789"
 @INCORRECT_NUM = 4123456789
 @HOST = http://localhost:3000
-@TOKEN = d1jb986cpw6aknzioe5t
+@TOKEN = 3xssgwkw9fdolvi7ukdc
 @ID = 52yulvpeh00tkmimry0t
 
 ###
@@ -36,7 +36,7 @@ POST https://localhost:3001/ping/
 Sample test
 
 ###
-POST {{HOST}}/users
+POST {{HOST}}/api/users
 Content-Type: application/json
 
 {
@@ -48,7 +48,7 @@ Content-Type: application/json
 }
 
 ###
-POST {{HOST}}/users
+POST {{HOST}}/api/users
 Content-Type: application/json
 
 {
@@ -60,12 +60,12 @@ Content-Type: application/json
 }
 
 ###
-GET {{HOST}}/users
+GET {{HOST}}/api/users
   ?phone={{INCORRECT_NUM}}
 token: {{TOKEN}}
 
 ###
-PUT {{HOST}}/users
+PUT {{HOST}}/api/users
 Content-Type: application/json
 
 {
@@ -74,12 +74,12 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{HOST}}/users
+DELETE {{HOST}}/api/users
   ?phone={{INCORRECT_NUM}}
 token: {{TOKEN}}
 
 ###
-POST {{HOST}}/tokens
+POST {{HOST}}/api/tokens
 Content-Type: application/json
 
 {
@@ -88,11 +88,11 @@ Content-Type: application/json
 }
 
 ###
-GET {{HOST}}/tokens
+GET {{HOST}}/api/tokens
   ?id={{ID}}
 
 ###
-PUT {{HOST}}/tokens
+PUT {{HOST}}/api/tokens
 Content-Type: application/json
 
 {
@@ -101,35 +101,35 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{HOST}}/tokens
+DELETE {{HOST}}/api/tokens
   ?id={{ID}}
 
 ###
-GET {{HOST}}/users
+GET {{HOST}}/api/users
   ?phone=9840123456
 token: {{TOKEN}}
 
 ###
-POST {{HOST}}/checks
+POST {{HOST}}/api/checks
 Content-Type: application/json
 token: {{TOKEN}}
 
 {
   "protocol": "http",
-  "url": "google.com",
+  "url": "shouldnotexist123456789.com",
   "method": "get",
   "successCodes": [200, 201],
   "timeoutSeconds": 3
 }
 
 ###
-GET {{HOST}}/checks
+GET {{HOST}}/api/checks
   ?id={{ID}}
 Content-Type: application/json
 token: {{TOKEN}}
 
 ###
-PUT {{HOST}}/checks
+PUT {{HOST}}/api/checks
 Content-Type: application/json
 token: {{TOKEN}}
 
@@ -142,7 +142,7 @@ token: {{TOKEN}}
 }
 
 ###
-DELETE {{HOST}}/checks
+DELETE {{HOST}}/api/checks
   ?id={{ID}}
 Content-Type: application/json
 token: {{TOKEN}}
