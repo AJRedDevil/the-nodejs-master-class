@@ -2,7 +2,7 @@
 @INCORRECT_NUM_STR = "4123456789"
 @INCORRECT_NUM = 4123456789
 @HOST = http://localhost:3000
-@TOKEN = 3xssgwkw9fdolvi7ukdc
+@TOKEN = gi1aer3zt1rvxi5j7z93
 @ID = 52yulvpeh00tkmimry0t
 
 ###
