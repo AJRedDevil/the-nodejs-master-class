@@ -4,6 +4,7 @@
  */
 
 //  Dependencies
+const childProcess = require('child_process');
 const events = require('events');
 const os = require('os');
 const readline = require('readline');
@@ -293,18 +294,21 @@ cli.responders.moreCheckInfo = function (str) {
 
 // List Logs
 cli.responders.listLogs = function () {
-  _logs.list(true, function (err, logFileNames) {
-    if (!err && logFileNames && logFileNames.length > 0) {
-      cli.verticalSpace();
-      logFileNames.forEach(function (logFileName) {
-        if (logFileName.indexOf('-') > -1) {
-          console.log(logFileName);
-          cli.verticalSpace();
-        }
-      })
-    }
+  cli.verticalSpace();
+  const ls = childProcess.spawn('ls', ['./.logs/']);
+  ls.stdout.on('data', function (dataObj) {
+    // Explode into separate lines
+    const dataStr = dataObj.toString();
+    const logFileNames = dataStr.split('\n');
+    logFileNames.forEach(function (logFileName) {
+      if (typeof (logFileName) == 'string' && logFileName.trim().length > 0 && logFileName.indexOf('-') > -1) {
+        console.log(logFileName.trim().split('.')[0]);
+        cli.verticalSpace();
+      }
+    })
   });
 };
+
 
 // More logs info
 cli.responders.moreLogInfo = function (str) {
